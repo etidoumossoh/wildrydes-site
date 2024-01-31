@@ -88,6 +88,115 @@ The web application allows registered users to request registered unicorn rides 
 
 - In this section,  we'll create an Amazon Cognito user pool to manage our users' accounts. We'll deploy pages that enable customers to register as new users, verify their email addresses, and sign into the site.
   
-- 
+- In the Amazon Cognito console, choose Create user pool.
+
+- On the Configure sign-in experience page, select User name. Keep the defaults for the other settings. Choose Next.
+
+- On the Configure security requirements page, keep the Password policy mode as Cognito defaults.
+
+- On the Configure sign-up experience page, keep everything as default. Choose Next.
+
+- On the Configure message delivery page, for Email provider, choose Send Email with Cognito.
+
+- On the Integrate your app page, name your user pool: WildRydes. Under Initial app client, name the app client: WildRydesWebApp and keep the other settings as default.
+
+- On the Review and Create page, choose Create user pool.
+
+- On the User Pool page, select the User Pool name to view detailed information about the user pool you created. Copy the User Pool ID in the User Pool overview section and save it in a secure location on your local machine.
+
+  ![image](https://github.com/etidoumossoh/wildrydes-site/assets/113789743/cafe0cf9-ee15-4445-9f14-d82b85b6ba12)
 
 
+- Select the App Integration tab and copy and save the Client ID in the App Clients and analytics section of your newly created user pool.
+
+- From your local machine, open the wild ride-site/js/config.js file in a text editor and update the cognito section of the file with the correct values for the User pool ID and App Client ID you saved.
+
+-  Save the modified file.
+
+- In your terminal window, add, commit, and push the file to your Git repository to have it automatically deploy to Amplify Console.
+
+- In your web browser, navigate to the wildrydes-site folder you copied to your local machine in Module 1.
+
+- Open /register.html, or choose the Giddy Up! button on the homepage (index.html page) of your site.
+
+- Complete the registration form and choose Let's Ryde. You can use your email.  Make sure to choose a password that contains at least one upper-case letter, a number, and a special character. You should see an alert that confirms that your user has been created.
+
+- If you used an email address you control, you can complete the account verification process by entering the verification code that is emailed to you. Please note, that the verification email may end up in your spam folder.
+
+- After confirming the new user by using the email address and password you entered during the registration step. If successful you should be redirected to /ride.html. You should see a notification that the API is not configured. Important: Copy and save the auth token to create the Amazon Cognito user pool authorizer in the next module.
+
+  ![image](https://github.com/etidoumossoh/wildrydes-site/assets/113789743/f4f4ec23-31a4-4f95-a5c9-b634b8f24582)
+
+# STEP THREE: Build a Serverless Backend 
+
+- First, we create a Dynamo DB. In the Amazon DynamoDB console, choose Create table.
+
+- For the Table name, enter Rides.
+
+- For the Partition key, enter RideId and select String for the key type.
+
+- In the Table settings section, ensure the Default setting is selected, and choose Create table.
+
+- On the Tables page, wait for your table creation to complete.
+
+- Once it is completed, the status will say Active. Select your table name.
+
+- In the Overview tab > General Information section of your new table, choose Additional info. Copy the ARN. You will use this in the next section.
+
+![image](https://github.com/etidoumossoh/wildrydes-site/assets/113789743/76c830ef-91a2-49cf-9588-acd3b52807a1)
+
+- We'll need to create an IAM role that grants your Lambda function permission to write logs to Amazon CloudWatch Logs and access to write items to your DynamoDB
+
+- In the IAM console, select Roles in the left navigation pane and then choose Create Role.
+
+- In the Trusted Entity Type section, select AWS service. For the Use case, select Lambda, then choose Next.
+
+- Enter AWSLambdaBasicExecutionRole in the filter text box and press Enter.
+
+- Select the checkbox next to the AWSLambdaBasicExecutionRole policy name and choose Next.
+
+- Enter WildRydesLambda for the Role Name. Keep the default settings for the other parameters. Choose Create Role.
+
+- In the filter box on the Roles page type WildRydesLambda and select the name of the role you just created.
+
+- On the Permissions tab, under Add Permissions, choose Create Inline Policy.
+
+- In the Select, a service section, type DynamoDB into the search bar, and select DynamoDB when it appears. Choose Select actions.
+
+- In the Actions allowed section, type PutItem into the search bar and select the checkbox next to PutItem when it appears.
+
+- In the Resources section, with the Specific option selected, choose the Add ARN link.
+
+- Select the Text tab. Paste the ARN of the table you created in DynamoDB (Step 6 in the previous section), and choose Add ARNs.
+Choose Next.
+
+- Enter DynamoDBWriteAccess for the policy name and choose Create policy.
+
+  ![image](https://github.com/etidoumossoh/wildrydes-site/assets/113789743/d916e5bd-cf55-4fc3-bfe1-160d94ccf5c2)
+
+
+- Next, we will create a Lambda function for handling requests. AWS Lambda will run our code in response to events such as an HTTP request. In this step, we'll build the core function that will process API requests from the web application to dispatch a unicorn.
+
+- From the AWS Lambda console, choose Create a function.
+
+- Keep the default Author from scratch card selected.
+
+- Enter RequestUnicorn in the Function name field.
+
+- Select Node.js 16.x for the Runtime (newer versions of Node.js will not work in this tutorial).
+
+- Select Use an existing role from the Change default execution role dropdown.
+
+- Select WildRydesLambda from the Existing Role dropdown. Click on the Create function.
+
+- Scroll down to the Code source section and replace the existing code in the index.js code editor with the contents of requestUnicorn.js.Then choose Choose Deploy.
+
+- Next, we will test the function that you built using the AWS Lambda console. In the RequestUnicorn function you built in the previous section, choose Test in the Code source section, and select Configure test event from the dropdown.
+
+- Keep the Create new event default selection.
+
+- Enter TestRequestEvent in the Event name field.
+
+- Copy and paste the following test event into the Event JSON section:
+
+  
