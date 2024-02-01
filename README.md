@@ -278,3 +278,29 @@ Choose Next.
 ![image](https://github.com/etidoumossoh/wildrydes-site/assets/113789743/6f20cdd2-634b-4db9-84e5-822ebbf04329)
 
 ## Create an Authorizer
+
+- In this section, we will be creating an Authorizer for the API, so we can make use of the user pool.
+
+- Use the following steps to configure the Authorizer in the Amazon API Gateway console:
+
+- In the left navigation pane of the WildRydes API you just created, select Authorizers.
+  
+- Choose Create New Authorizer.
+
+- Enter WildRydes into the Authorizer Name field
+
+- Select Cognito as the Type.
+
+- Under Cognito User Pool, in the Region drop-down, select the same Region you have been using for the rest of the tutorial. Enter WildRydes in the Cognito User Pool name field.
+
+- Enter Authorization for the Token Source.
+
+- Choose Create.
+  
+- To verify the authorizer configuration, select Test.
+
+- Paste the Authorization Token copied from the ride.html webpage and verify that the HTTP status Response code is 200.
+
+![image](https://github.com/etidoumossoh/wildrydes-site/assets/113789743/b36d7636-6dec-454a-8fb6-5079a1f79907)
+
+ 
