@@ -303,4 +303,79 @@ Choose Next.
 
 ![image](https://github.com/etidoumossoh/wildrydes-site/assets/113789743/b36d7636-6dec-454a-8fb6-5079a1f79907)
 
+ ## Create a New Resource and Method 
+
+ - In this section, you will create a new resource within your API. Then create a POST method for that resource and configure it to use a Lambda proxy integration backed by the RequestUnicorn function you created in the first step of this module.
  
+ - In the left navigation pane of your WildRydes API, select Resources.
+
+- From the Actions dropdown, select Create Resource.
+  
+- Enter ride as the Resource Name, which will automatically create the Resource Path /ride.
+  
+- Select the checkbox for Enable API Gateway CORS.
+  
+- Choose Create Resource.
+- With the newly created /ride resource selected, from the Actions dropdown select Create Method.
+  
+- Select POST from the new dropdown that appears under OPTIONS, then select the checkmark icon.
+  
+- Select Lambda Function for the Integration type.
+  
+- Select the checkbox for Use Lambda Proxy integration.
+  
+- Select the same Region you have been using throughout the tutorial for Lambda Region.
+  
+- Enter RequestUnicorn for Lambda Function.
+  
+- Choose Save
+
+- Select the Method Request card.
+
+- Choose the pencil icon next to Authorization.
+
+- Select the WildRydes Cognito user pool authorizer from the drop-down list, and select the checkmark icon.
+
+## Deploy your API
+
+- In this section, you will deploy your API from the Amazon API Gateway console.
+
+- In the Actions drop-down list select Deploy API
+
+- Select [New Stage] in the Deployment stage drop-down list.
+
+- Enter prod for the Stage Name.
+
+- Choose Deploy.
+
+- Copy the Invoke URL. You will use it in the next section.
+
+  ![image](https://github.com/etidoumossoh/wildrydes-site/assets/113789743/a0ec6ce3-31d1-4277-b229-8aa9c2babad4)
+
+  ## Update the Website Config
+
+ - On your local machine, navigate to the js folder, and open the config.js file in a text editor of your choice
+ 
+- Paste the Invoke URL you copied from the Amazon API Gateway console in the previous section into the invoke Url value of the config.js file.
+
+ - Save the file.
+
+ - Add, commit, and push the updated config.js file to your Git repository to have it automatically deploy to Amplify Console.
+
+## Validate your Implementation 
+
+- Update the ArcGIS JS version from 4.3 to 4.6 (newer versions will not work) in the ride.html file as:
+  
+  `<script src="https://js.arcgis.com/4.6/"></script>
+ <link rel="stylesheet" href="https://js.arcgis.com/4.6/esri/css/main.css">`
+
+ - Save the modified file. Add, commit, and git push it to your Git repository to have it automatically deploy to AWS Amplify console.
+ 
+ - Visit /ride.html under your website domain.
+ 
+ - After the map has loaded, click anywhere on the map to set a pickup location.
+ 
+ -   Choose Request Unicorn. You should see a notification in the right sidebar that a unicorn is on its way and then see a unicorn icon fly to your pickup location.
+
+
+  
