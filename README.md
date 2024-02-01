@@ -366,8 +366,8 @@ Choose Next.
 
 - Update the ArcGIS JS version from 4.3 to 4.6 (newer versions will not work) in the ride.html file as:
   
-  `<script src="https://js.arcgis.com/4.6/"></script>
- <link rel="stylesheet" href="https://js.arcgis.com/4.6/esri/css/main.css">`
+  `<script src="https://js.arcgis.com/4.6/"></script>`
+ `<link rel="stylesheet" href="https://js.arcgis.com/4.6/esri/css/main.css">`
 
  - Save the modified file. Add, commit, and git push it to your Git repository to have it automatically deploy to AWS Amplify console.
  
