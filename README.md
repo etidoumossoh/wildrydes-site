@@ -20,7 +20,7 @@ The web application allows registered users to request registered unicorn rides 
 
 ## AWS Configuration
 
-- Select your preferred region in your AWS Console change
+- Select your preferred region in your AWS Console
   
 - First, run the aws configure in your text editor
 
